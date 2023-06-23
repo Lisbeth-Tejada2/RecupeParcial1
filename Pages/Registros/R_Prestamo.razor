@@ -1,0 +1,123 @@
+﻿@page "/RegistroPrestamos"
+@inject PrestamoBLL PrestamoBLL
+
+<EditForm model="Prestamo" OnValidSubmit="Guardar">
+    <DataAnnotationsValidator />
+    <div class="container">
+        <div class="card shadow-lg">
+            <div class="card-header">
+                <h3>REGISTRO Y CONSULTA DE PRESTAMOS.</h3>
+
+
+            </div>
+            <div class=card-body>
+                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-xl-4">
+                    <label>ID Prestamos:</label>
+                    <div class="input-group mb-3">
+                        <InputNumber @bind-Value="prestamo.PrestamoId" class="form-control"
+                                     aria-describedby="BotonDeBusqueda" />
+                        <button @onclick="Buscar" class="btn btn-outline-primary" type="button" id="BotonDeBusqueda">
+                            <i class="oi oi-magnifying-glass" />
+                        </button>
+                    </div>
+                </div>
+
+
+                <div class="Fecha">
+                    <div class="mb-3">
+                        <label class="form-label" for="Fecha">Fecha:</label>
+                        <InputDate @bind-Value="prestamo.Fecha" class="form-control" />
+                        <ValidationMessage For="@(() => prestamo.Fecha)" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="Monto">Monto:</label>
+                        <InputNumber @bind-Value="prestamo.Balance" class="form-control" />
+                        <ValidationMessage For="@(() => prestamo.Balance)" />
+                 
+
+                        <div class="mb-3">
+                            <label class="form-label" for="Balance">Balance:</label>
+                            <InputNumber @bind-Value="prestamo.Balance" class="form-control" />
+                            <ValidationMessage For="@(() => prestamo.Balance)" />
+                        </div>
+
+
+                        
+                        <div class="card-footer d-flex justify-content-center">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-outline-primary" @onclick="Nuevo">
+                                    Nuevo <i class="oi oi-file" />
+                                </button>
+                                <button type="submit" class="btn btn-outline-success">
+                                    Guardar <i class="oi oi-document" />
+                                </button>
+                                <button type="button" class="btn btn-outline-danger" @onclick="Eliminar">
+                                    Eliminar <i class="oi oi-trash" />
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</EditForm>
+
+@code {
+    public int PrestamoId { get; set; }
+    public Prestamo prestamo { get; set; } = new Prestamo();
+    public void Buscar()
+    {
+        var PrestamoEncontrado = PrestamoBLL.Buscar(prestamo.PrestamoId);
+        if (PrestamoEncontrado != null)
+        {
+            this.prestamo = PrestamoEncontrado;
+        }
+    }
+
+
+    void Nuevo()
+    {
+        prestamo = new Prestamo();
+    }
+
+    void Guardar()
+    {
+        if (!Validate())
+            if (Validate())
+                return;
+        if (PrestamoBLL.Guardar(prestamo))
+        {
+            Nuevo();
+        }
+    }
+
+    bool Validate()
+    {
+        if (prestamo.PrestamoId < 0)
+            return false;
+        if (prestamo.Monto < 0)
+            return false;
+        if (prestamo.Balance < 0)
+            return false;
+        else
+            return true;
+    }
+
+    public void Eliminar()
+    {
+        Buscar();
+        if (PrestamoBLL.Eliminar(this.prestamo))
+            if (Validate())
+            {
+                Nuevo();
+                if (PrestamoBLL.Eliminar(this.prestamo))
+                {
+                    Nuevo();
+                }
+            }
+    }
+}
+
+

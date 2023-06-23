@@ -1,0 +1,39 @@
+﻿@page "/RegistroPrestamos"
+@inject PrestamoBLL PrestamoBLL
+
+<table class="table">
+
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Fecha</th>
+            <th>Concepto</th>
+            <th>Monto</th>
+            <th>Balance</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var prestamo in L_Prestamo)
+        {
+            <tr>
+                <td>@prestamo.PrestamoId</td>
+                <td>@prestamo.Fecha.ToString("DD/MM/YY")</td>
+                <td>@prestamo.Concepto</td>
+                <td>@prestamo.Monto</td>
+                <td>@prestamo.Balance</td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+@code 
+{
+    public List<Prestamo> L_Prestamo { get; set; } = new List<Prestamo>();
+
+    protected override void OnInitialized() 
+    {
+        L_Prestamo = PrestamoBLL.Listar(l => true);
+    }
+}
