@@ -114,16 +114,10 @@
 
     public void Eliminar()
     {
-        Buscar();
-        if (PrestamoBLL.Eliminar(this.prestamo))
-            if (Validate())
-            {
-                Nuevo();
-                if (PrestamoBLL.Eliminar(this.prestamo))
-                {
-                    Nuevo();
-                }
-            }
+        if (PrestamoBLL.Eliminar(prestamo))
+        {
+            Nuevo();
+        }
     }
 }
 
