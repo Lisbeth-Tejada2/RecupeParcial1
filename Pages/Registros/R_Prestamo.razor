@@ -34,6 +34,13 @@
                         <label class="form-label" for="Monto">Monto:</label>
                         <InputNumber @bind-Value="prestamo.Balance" class="form-control" />
                         <ValidationMessage For="@(() => prestamo.Balance)" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="Concepto">Concepto:</label>
+                        <InputText @bind-Value="prestamo.Concepto" class="form-control" />
+                        <ValidationMessage For="@(() => prestamo.Concepto)" />
+                    </div>
                  
 
                         <div class="mb-3">
@@ -61,7 +68,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    
 </EditForm>
 
 @code {
