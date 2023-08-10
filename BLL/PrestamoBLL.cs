@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RecupeParcial1.DAL;
 using RecupeParcial1.Models;
-
+using System.Linq.Expressions;
 
 namespace RecupeParcial1.BLL
 {
@@ -51,6 +51,18 @@ namespace RecupeParcial1.BLL
             _context.prestamo.Remove(prestamo);
             int eliminado = _context.SaveChanges();
             return eliminado > 0;
+        }
+        public Prestamo? Buscar(int PrestamoId)
+        {
+            return _context.prestamo.Where(i => i.PrestamoId == PrestamoId)
+                .AsNoTracking()
+                .SingleOrDefault();
+        }
+        public List<Prestamo> Listar(Expression<Func<Prestamo, bool>> criterio)
+        {
+            return _context.prestamo
+                .Where(criterio)
+                .AsNoTracking().ToList();
         }
 
     }

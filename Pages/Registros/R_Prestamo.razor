@@ -1,7 +1,7 @@
 ﻿@page "/RegistroPrestamos"
 @inject PrestamoBLL PrestamoBLL
-
 <EditForm model="Prestamo" OnValidSubmit="Guardar">
+
     <DataAnnotationsValidator />
     <div class="container">
         <div class="card shadow-lg">
@@ -15,8 +15,8 @@
                     <label>ID Prestamos:</label>
                     <div class="input-group mb-3">
                         <InputNumber @bind-Value="prestamo.PrestamoId" class="form-control"
-                                     aria-describedby="BotonDeBusqueda" />
-                        <button @onclick="Buscar" class="btn btn-outline-primary" type="button" id="BotonDeBusqueda">
+                                     aria-describedby="Buscar" />
+                        <button @onclick="Buscar" class="btn btn-outline-primary" type="button" id="Buscar">
                             <i class="oi oi-magnifying-glass" />
                         </button>
                     </div>
