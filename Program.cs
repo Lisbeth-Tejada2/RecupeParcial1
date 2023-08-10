@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using RecupeParcial1.BLL;
 using RecupeParcial1.DAL;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
