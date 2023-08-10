@@ -1,5 +1,8 @@
 ﻿@page "/R_Prestamo"
+@using RecupeParcial1.Extenciones;
 @inject PrestamoBLL PrestamoBLL
+@inject NotificationService Notifier
+
 <EditForm model="Prestamo" OnValidSubmit="Guardar">
 
     <DataAnnotationsValidator />
@@ -97,6 +100,7 @@
         if (PrestamoBLL.Guardar(prestamo))
         {
             Nuevo();
+            Notifier.ShowNotification("Préstamo guardado exitosamente", NotificationSeverity.Success);
         }
     }
 
@@ -115,8 +119,10 @@
     public void Eliminar()
     {
         if (PrestamoBLL.Eliminar(prestamo))
+
         {
             Nuevo();
+            Notifier.ShowNotification("Préstamo eliminado exitosamente", NotificationSeverity.Success);
         }
     }
 }
