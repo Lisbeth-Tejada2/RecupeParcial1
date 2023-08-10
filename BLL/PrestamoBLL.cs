@@ -48,7 +48,8 @@ namespace RecupeParcial1.BLL
         //Método Eliminar
         public bool Eliminar(Prestamo prestamo)
         {
-            _context.prestamo.Remove(prestamo);
+            var entity = _context.prestamo.Attach(prestamo);
+            _context.prestamo.Remove(entity.Entity);
             int eliminado = _context.SaveChanges();
             return eliminado > 0;
         }
